@@ -1,7 +1,302 @@
 [
-  { "id": 1, "name": "Laptop Pro", "category": "Electronics", "price": 2499 },
-  { "id": 2, "name": "Noise Cancelling Headphones", "category": "Electronics", "price": 399 },
-  { "id": 3, "name": "Ultra‑Wide Monitor", "category": "Electronics", "price": 999 },
-  { "id": 4, "name": "Ergonomic Chair", "category": "Furniture", "price": 799 },
-  { "id": 5, "name": "Standing Desk", "category": "Furniture", "price": 1199 }
+  {
+    "id": 1,
+    "name": "Laptop Pro",
+    "category": "Electronics",
+    "price": 2499
+  },
+  {
+    "id": 2,
+    "name": "Noise Cancelling Headphones",
+    "category": "Electronics",
+    "price": 399
+  },
+  {
+    "id": 3,
+    "name": "Ultra‑Wide Monitor",
+    "category": "Electronics",
+    "price": 999
+  },
+  {
+    "id": 4,
+    "name": "Ergonomic Chair",
+    "category": "Furniture",
+    "price": 799
+  },
+  {
+    "id": 5,
+    "name": "Standing Desk",
+    "category": "Furniture",
+    "price": 1199
+  },
+  {
+    "id": 6,
+    "name": "Wireless Mouse",
+    "category": "Electronics",
+    "price": 49
+  },
+  {
+    "id": 7,
+    "name": "Mechanical Keyboard",
+    "category": "Electronics",
+    "price": 149
+  },
+  {
+    "id": 8,
+    "name": "USB-C Hub",
+    "category": "Electronics",
+    "price": 79
+  },
+  {
+    "id": 9,
+    "name": "Desk Lamp",
+    "category": "Furniture",
+    "price": 45
+  },
+  {
+    "id": 10,
+    "name": "Bookshelf",
+    "category": "Furniture",
+    "price": 299
+  },
+  {
+    "id": 11,
+    "name": "Coffee Maker",
+    "category": "Appliances",
+    "price": 89
+  },
+  {
+    "id": 12,
+    "name": "Blender",
+    "category": "Appliances",
+    "price": 129
+  },
+  {
+    "id": 13,
+    "name": "Air Fryer",
+    "category": "Appliances",
+    "price": 159
+  },
+  {
+    "id": 14,
+    "name": "Webcam HD",
+    "category": "Electronics",
+    "price": 119
+  },
+  {
+    "id": 15,
+    "name": "External SSD 1TB",
+    "category": "Electronics",
+    "price": 129
+  },
+  {
+    "id": 16,
+    "name": "Tablet 10 inch",
+    "category": "Electronics",
+    "price": 449
+  },
+  {
+    "id": 17,
+    "name": "Smart Watch",
+    "category": "Electronics",
+    "price": 299
+  },
+  {
+    "id": 18,
+    "name": "Office Chair Mat",
+    "category": "Furniture",
+    "price": 35
+  },
+  {
+    "id": 19,
+    "name": "Whiteboard 24x36",
+    "category": "Office Supplies",
+    "price": 29
+  },
+  {
+    "id": 20,
+    "name": "Desk Organizer",
+    "category": "Office Supplies",
+    "price": 24
+  },
+  {
+    "id": 21,
+    "name": "Wireless Earbuds",
+    "category": "Electronics",
+    "price": 179
+  },
+  {
+    "id": 22,
+    "name": "Portable Charger 20K mAh",
+    "category": "Electronics",
+    "price": 39
+  },
+  {
+    "id": 23,
+    "name": "Dual Monitor Arm",
+    "category": "Furniture",
+    "price": 99
+  },
+  {
+    "id": 24,
+    "name": "Storage Cabinet",
+    "category": "Furniture",
+    "price": 189
+  },
+  {
+    "id": 25,
+    "name": "Toaster Oven",
+    "category": "Appliances",
+    "price": 79
+  },
+  {
+    "id": 26,
+    "name": "Kettle Electric",
+    "category": "Appliances",
+    "price": 45
+  },
+  {
+    "id": 27,
+    "name": "Microphone USB",
+    "category": "Electronics",
+    "price": 89
+  },
+  {
+    "id": 28,
+    "name": "Ring Light",
+    "category": "Electronics",
+    "price": 59
+  },
+  {
+    "id": 29,
+    "name": "Laptop Stand",
+    "category": "Furniture",
+    "price": 49
+  },
+  {
+    "id": 30,
+    "name": "Foot Rest",
+    "category": "Furniture",
+    "price": 35
+  },
+  {
+    "id": 31,
+    "name": "File Cabinet 2-Drawer",
+    "category": "Furniture",
+    "price": 149
+  },
+  {
+    "id": 32,
+    "name": "Sticky Notes Pack",
+    "category": "Office Supplies",
+    "price": 8
+  },
+  {
+    "id": 33,
+    "name": "Pens Pack 12",
+    "category": "Office Supplies",
+    "price": 12
+  },
+  {
+    "id": 34,
+    "name": "Notebook Set 5",
+    "category": "Office Supplies",
+    "price": 18
+  },
+  {
+    "id": 35,
+    "name": "Printer Wireless",
+    "category": "Electronics",
+    "price": 249
+  },
+  {
+    "id": 36,
+    "name": "Scanner Document",
+    "category": "Electronics",
+    "price": 199
+  },
+  {
+    "id": 37,
+    "name": "Projector 1080p",
+    "category": "Electronics",
+    "price": 399
+  },
+  {
+    "id": 38,
+    "name": "Speaker Bluetooth",
+    "category": "Electronics",
+    "price": 129
+  },
+  {
+    "id": 39,
+    "name": "Surge Protector 6-Outlet",
+    "category": "Electronics",
+    "price": 25
+  },
+  {
+    "id": 40,
+    "name": "HDMI Cable 6ft",
+    "category": "Electronics",
+    "price": 15
+  },
+  {
+    "id": 41,
+    "name": "Monitor Riser",
+    "category": "Furniture",
+    "price": 42
+  },
+  {
+    "id": 42,
+    "name": "Side Table",
+    "category": "Furniture",
+    "price": 79
+  },
+  {
+    "id": 43,
+    "name": "Vacuum Cleaner",
+    "category": "Appliances",
+    "price": 279
+  },
+  {
+    "id": 44,
+    "name": "Humidifier",
+    "category": "Appliances",
+    "price": 69
+  },
+  {
+    "id": 45,
+    "name": "Paper Shredder",
+    "category": "Office Supplies",
+    "price": 89
+  },
+  {
+    "id": 46,
+    "name": "Calculator Desktop",
+    "category": "Office Supplies",
+    "price": 22
+  },
+  {
+    "id": 47,
+    "name": "Laptop Bag",
+    "category": "Office Supplies",
+    "price": 59
+  },
+  {
+    "id": 48,
+    "name": "Cable Management Kit",
+    "category": "Office Supplies",
+    "price": 19
+  },
+  {
+    "id": 49,
+    "name": "Desk Plant Pot",
+    "category": "Office Supplies",
+    "price": 28
+  },
+  {
+    "id": 50,
+    "name": "Wall Clock",
+    "category": "Furniture",
+    "price": 34
+  }
 ]

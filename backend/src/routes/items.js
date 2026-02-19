@@ -1,46 +1,41 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const router = express.Router();
-const DATA_PATH = path.join(__dirname, '../../../data/items.json');
-
-// Utility to read data (intentionally sync to highlight blocking issue)
-function readData() {
-  const raw = fs.readFileSync(DATA_PATH);
-  return JSON.parse(raw);
-}
+const { readData, writeData } = require('../utils/data');
+const { invalidateStats } = require('../utils/stats');
+const { BadRequestError, NotFoundError } = require('../errors/AppError');
 
 // GET /api/items
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const data = readData();
-    const { limit, q } = req.query;
+    const data = await readData();
+    const { q } = req.query;
+    // guard against negative offsets and unreasonably large page sizes
+    const offset = Math.max(0, parseInt(req.query.offset) || 0);
+    const limit = Math.min(Math.max(1, parseInt(req.query.limit) || 20), 100);
     let results = data;
 
     if (q) {
-      // Simple substring search (sub‑optimal)
-      results = results.filter(item => item.name.toLowerCase().includes(q.toLowerCase()));
+      results = results.filter(item =>
+        item.name.toLowerCase().includes(q.toLowerCase())
+      );
     }
 
-    if (limit) {
-      results = results.slice(0, parseInt(limit));
-    }
+    const total = results.length;
+    results = results.slice(offset, offset + limit);
 
-    res.json(results);
+    res.json({ items: results, total });
   } catch (err) {
     next(err);
   }
 });
 
 // GET /api/items/:id
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const data = readData();
+    const data = await readData();
     const item = data.find(i => i.id === parseInt(req.params.id));
     if (!item) {
-      const err = new Error('Item not found');
-      err.status = 404;
-      throw err;
+      throw new NotFoundError('Item not found');
     }
     res.json(item);
   } catch (err) {
@@ -49,14 +44,23 @@ router.get('/:id', (req, res, next) => {
 });
 
 // POST /api/items
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    // TODO: Validate payload (intentional omission)
-    const item = req.body;
-    const data = readData();
-    item.id = Date.now();
+    const { name, price } = req.body;
+
+    if (!name || typeof name !== 'string' || !name.trim()) {
+      throw new BadRequestError('name is required and must be a non-empty string');
+    }
+    if (price == null || typeof price !== 'number' || price < 0) {
+      throw new BadRequestError('price is required and must be a non-negative number');
+    }
+
+    const data = await readData();
+    // good enough for single-process dev, would use uuid in prod
+    const item = { ...req.body, id: Date.now() };
     data.push(item);
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
+    await writeData(data);
+    invalidateStats();
     res.status(201).json(item);
   } catch (err) {
     next(err);
