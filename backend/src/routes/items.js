@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { readData, writeData } = require('../utils/data');
 const { invalidateStats } = require('../utils/stats');
+const { BadRequestError, NotFoundError } = require('../errors/AppError');
 
 // GET /api/items
 router.get('/', async (req, res, next) => {
@@ -33,9 +34,7 @@ router.get('/:id', async (req, res, next) => {
     const data = await readData();
     const item = data.find(i => i.id === parseInt(req.params.id));
     if (!item) {
-      const err = new Error('Item not found');
-      err.status = 404;
-      throw err;
+      throw new NotFoundError('Item not found');
     }
     res.json(item);
   } catch (err) {
@@ -49,10 +48,10 @@ router.post('/', async (req, res, next) => {
     const { name, price } = req.body;
 
     if (!name || typeof name !== 'string' || !name.trim()) {
-      return res.status(400).json({ error: 'name is required and must be a non-empty string' });
+      throw new BadRequestError('name is required and must be a non-empty string');
     }
     if (price == null || typeof price !== 'number' || price < 0) {
-      return res.status(400).json({ error: 'price is required and must be a non-negative number' });
+      throw new BadRequestError('price is required and must be a non-negative number');
     }
 
     const data = await readData();

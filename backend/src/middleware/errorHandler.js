@@ -1,13 +1,17 @@
+const { AppError, NotFoundError } = require('../errors/AppError');
+const { logger } = require('./logger');
+
 const notFound = (req, res, next) => {
-  const err = new Error('Route Not Found');
-  err.status = 404;
-  next(err);
+  next(new NotFoundError('Route Not Found'));
 }
 
 const errorHandler = (err, req, res, next) => {
-  const status = err.status || 500;
-  const message = status === 500 ? 'Internal server error' : err.message;
-  res.status(status).json({ error: message });
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ error: err.message });
+  }
+
+  logger.error({ err, url: req.url, method: req.method }, 'Unexpected error');
+  res.status(500).json({ error: 'Internal server error' });
 };
 
 module.exports = { notFound, errorHandler };
