@@ -1,6 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useData } from '../state/DataContext';
 import { Link } from 'react-router-dom';
+import { List } from 'react-window';
+
+const ROW_HEIGHT = 50;
+
+function Row({ index, style, items }) {
+  const item = items[index];
+  return (
+    <div style={{ ...style, display: 'flex', alignItems: 'center', borderBottom: '1px solid #eee', padding: '0 8px', boxSizing: 'border-box' }}>
+      <Link to={'/items/' + item.id}>{item.name}</Link>
+      <span style={{ marginLeft: 8, color: '#666' }}>${item.price}</span>
+    </div>
+  );
+}
 
 function Items() {
   const { items, total, page, setPage, query, setQuery, loading, error, fetchItems, PAGE_SIZE } = useData();
@@ -42,14 +55,14 @@ function Items() {
         <p>No items found.</p>
       ) : (
         <>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {items.map(item => (
-              <li key={item.id} style={{ padding: '12px 0', borderBottom: '1px solid #eee' }}>
-                <Link to={'/items/' + item.id}>{item.name}</Link>
-                <span style={{ marginLeft: 8, color: '#666' }}>${item.price}</span>
-              </li>
-            ))}
-          </ul>
+          <List
+            height={Math.min(items.length, 10) * ROW_HEIGHT}
+            rowCount={items.length}
+            rowHeight={ROW_HEIGHT}
+            width="100%"
+            rowComponent={Row}
+            rowProps={{ items }}
+          />
 
           {total > 0 && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
