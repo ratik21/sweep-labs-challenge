@@ -8,10 +8,15 @@ function ItemDetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/api/items/' + id)
+    const controller = new AbortController();
+    fetch('/api/items/' + id, { signal: controller.signal })
       .then(res => res.ok ? res.json() : Promise.reject(res))
       .then(setItem)
-      .catch(() => navigate('/'));
+      .catch(err => {
+        if (err.name === 'AbortError') return;
+        navigate('/');
+      });
+    return () => controller.abort();
   }, [id, navigate]);
 
   if (!item) return <ItemDetailSkeleton />;
