@@ -9,6 +9,7 @@ router.get('/', async (req, res, next) => {
   try {
     const data = await readData();
     const { q } = req.query;
+    // guard against negative offsets and unreasonably large page sizes
     const offset = Math.max(0, parseInt(req.query.offset) || 0);
     const limit = Math.min(Math.max(1, parseInt(req.query.limit) || 20), 100);
     let results = data;
@@ -55,6 +56,7 @@ router.post('/', async (req, res, next) => {
     }
 
     const data = await readData();
+    // good enough for single-process dev, would use uuid in prod
     const item = { ...req.body, id: Date.now() };
     data.push(item);
     await writeData(data);

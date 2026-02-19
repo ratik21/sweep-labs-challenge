@@ -18,6 +18,7 @@ export function DataProvider({ children }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // bumped on every fetch so we can ignore responses that come back out of order
   const requestIdRef = useRef(0);
 
   const fetchItems = useCallback(
@@ -33,7 +34,7 @@ export function DataProvider({ children }) {
         const res = await fetch(`/api/items?${params}`, { signal });
         if (!res.ok) throw new Error("Failed to fetch items");
         const data = await res.json();
-        if (id !== requestIdRef.current) return;
+        if (id !== requestIdRef.current) return; // stale, a newer request already fired
         setItems(data.items);
         setTotal(data.total);
         setLoading(false);
@@ -47,6 +48,7 @@ export function DataProvider({ children }) {
     [page, query],
   );
 
+  // without this, every provider render would re-render all consumers
   const value = useMemo(
     () => ({
       items,

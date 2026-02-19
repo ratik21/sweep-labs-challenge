@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { List } from 'react-window';
 import ItemsSkeleton from '../skeletons/ItemsSkeleton';
 
+// needs to stay in sync with .item-row height in CSS
 const ROW_HEIGHT = 50;
 
 function Row({ index, style, items }) {
@@ -50,6 +51,7 @@ function Items() {
         onChange={e => setInputValue(e.target.value)}
       />
 
+      {/* show skeleton on first load, but keep stale rows visible (dimmed) when paginating */}
       {loading && !hasItems ? (
         <ItemsSkeleton />
       ) : error ? (

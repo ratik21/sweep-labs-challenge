@@ -10,6 +10,7 @@ function ItemDetail() {
   useEffect(() => {
     const controller = new AbortController();
     fetch('/api/items/' + id, { signal: controller.signal })
+      // fetch doesn't throw on 4xx/5xx, so reject manually
       .then(res => res.ok ? res.json() : Promise.reject(res))
       .then(setItem)
       .catch(err => {

@@ -10,6 +10,7 @@ const errorHandler = (err, req, res, next) => {
     return res.status(err.statusCode).json({ error: err.message });
   }
 
+  // only log truly unexpected errors, not known ones like 404/400
   logger.error({ err, url: req.url, method: req.method }, 'Unexpected error');
   res.status(500).json({ error: 'Internal server error' });
 };

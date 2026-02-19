@@ -71,6 +71,7 @@ describe('GET /api/items', () => {
     expect(res.body.items[0].name).toBe('Laptop Pro');
   });
 
+  // total should still be 3 even though this page has no items
   it('returns empty items when offset exceeds total', async () => {
     const res = await request(app).get('/api/items?offset=100');
     expect(res.status).toBe(200);
@@ -147,6 +148,7 @@ describe('POST /api/items', () => {
   });
 });
 
+// make sure real I/O errors don't leak stack traces to the client
 describe('Error paths', () => {
   it('GET /api/items returns 500 when readData fails', async () => {
     readData.mockRejectedValue(new Error('ENOENT: no such file'));

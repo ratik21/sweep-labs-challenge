@@ -1,5 +1,6 @@
 const { readData } = require('./data');
 
+// simple in-memory cache, gets cleared whenever items are mutated
 let cachedStats = null;
 
 function mean(arr) {
