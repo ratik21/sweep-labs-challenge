@@ -8,23 +8,29 @@
 
 ### Initial State
 
-<img width="706" height="284" alt="image" src="https://github.com/user-attachments/assets/0b236e32-635b-4a04-bad5-ddd2faf2776f" />
+<img width="706" height="284" alt="image" src="https://github.com/user-attachments/assets/0b236e32-635b-4a04-bad5-ddd2faf2776f" /> </br>
 
 ### Final State
 
 (home)
 
-<img width="1995" height="781" alt="image" src="https://github.com/user-attachments/assets/2288305c-e168-459a-a8a3-be2fe5d7a89d" />
+<img width="1995" height="781" alt="image" src="https://github.com/user-attachments/assets/2288305c-e168-459a-a8a3-be2fe5d7a89d" /> </br></br>
 
-<img width="949" height="565" alt="image" src="https://github.com/user-attachments/assets/6ff14bd1-5125-4466-a837-4c3ae64ce0ae" />
-
-(empty state)
-
-<img width="911" height="249" alt="image" src="https://github.com/user-attachments/assets/e508471b-a96b-47ab-bbe1-0d39151a2fd5" />
 
 (after search)
 
-<img width="850" height="395" alt="image" src="https://github.com/user-attachments/assets/8632f238-9431-4ac1-aadc-335d1604e222" />
+<img width="842" height="329" alt="image" src="https://github.com/user-attachments/assets/4d6c2c36-8c89-4e11-a20f-c2dcbe910db7" /> </br></br>
+
+
+(item detail)
+
+<img width="819" height="305" alt="image" src="https://github.com/user-attachments/assets/5dc874ef-730b-490d-a219-007c92cbcb3a" /> </br></br>
+
+
+(empty state)
+
+<img width="832" height="201" alt="image" src="https://github.com/user-attachments/assets/af6d6ba2-838c-4ca2-9892-670897e9f315" /> </br></br>
+
 
 ---
 
