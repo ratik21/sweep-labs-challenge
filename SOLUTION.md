@@ -13,14 +13,17 @@
 ### Final State
 
 (home)
+
 <img width="1995" height="781" alt="image" src="https://github.com/user-attachments/assets/2288305c-e168-459a-a8a3-be2fe5d7a89d" />
 
 <img width="949" height="565" alt="image" src="https://github.com/user-attachments/assets/6ff14bd1-5125-4466-a837-4c3ae64ce0ae" />
 
 (empty state)
+
 <img width="911" height="249" alt="image" src="https://github.com/user-attachments/assets/e508471b-a96b-47ab-bbe1-0d39151a2fd5" />
 
 (after search)
+
 <img width="850" height="395" alt="image" src="https://github.com/user-attachments/assets/8632f238-9431-4ac1-aadc-335d1604e222" />
 
 ---
