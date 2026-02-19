@@ -1,36 +1,8 @@
 # Solution
 
-> **Heads up:** This solution was developed with the assistance of AI tools — specifically Claude Code and Codex CLI. I used them for code generation, debugging, refactoring, and exploring patterns. I believe AI-assisted development is the way forward and something we should embrace rather than shy away from. The architectural decisions, trade-off calls, and review still come from me — AI just makes the execution faster and more thorough.
+**Heads up:** This solution was developed with the assistance of AI tools — specifically _Claude Code_ and _Codex CLI_. I used them for code generation, debugging, refactoring, and exploring patterns following a 3 step process (spec/design -> implementation plan -> implementation, tdd driven).
 
----
-
-## UI/UX
-
-### Initial State
-
-<img width="706" height="284" alt="image" src="https://github.com/user-attachments/assets/0b236e32-635b-4a04-bad5-ddd2faf2776f" /> </br>
-
-### Final State
-
-(home)
-
-<img width="1995" height="781" alt="image" src="https://github.com/user-attachments/assets/2288305c-e168-459a-a8a3-be2fe5d7a89d" /> </br></br>
-
-
-(after search)
-
-<img width="842" height="329" alt="image" src="https://github.com/user-attachments/assets/4d6c2c36-8c89-4e11-a20f-c2dcbe910db7" /> </br></br>
-
-
-(item detail)
-
-<img width="819" height="305" alt="image" src="https://github.com/user-attachments/assets/5dc874ef-730b-490d-a219-007c92cbcb3a" /> </br></br>
-
-
-(empty state)
-
-<img width="832" height="201" alt="image" src="https://github.com/user-attachments/assets/af6d6ba2-838c-4ca2-9892-670897e9f315" /> </br></br>
-
+I believe this is the way forward and something we should embrace rather than shy away from. The architectural decisions, trade-off calls, and review still come from me — AI just makes the execution faster and more thorough.
 
 ---
 
@@ -106,3 +78,29 @@ Things I'd do with more time but didn't fit within the assessment scope:
 - **Database:** The backend reads/writes a JSON file on disk, which is fine for a demo but doesn't scale. A real version would use a database (Postgres, SQLite, etc.) with proper queries instead of loading everything into memory.
 
 - **TypeScript:** The entire codebase is plain JS. TypeScript would catch a lot of bugs at compile time — especially around the data shapes flowing between backend and frontend.
+
+---
+
+## UI/UX
+
+### Initial State
+
+<img width="706" height="284" alt="image" src="https://github.com/user-attachments/assets/0b236e32-635b-4a04-bad5-ddd2faf2776f" /> </br>
+
+### Final State
+
+(home)
+
+<img width="1995" height="781" alt="image" src="https://github.com/user-attachments/assets/2288305c-e168-459a-a8a3-be2fe5d7a89d" /> </br></br>
+
+(after search)
+
+<img width="842" height="329" alt="image" src="https://github.com/user-attachments/assets/4d6c2c36-8c89-4e11-a20f-c2dcbe910db7" /> </br></br>
+
+(item detail)
+
+<img width="819" height="305" alt="image" src="https://github.com/user-attachments/assets/5dc874ef-730b-490d-a219-007c92cbcb3a" /> </br></br>
+
+(empty state)
+
+<img width="832" height="201" alt="image" src="https://github.com/user-attachments/assets/af6d6ba2-838c-4ca2-9892-670897e9f315" /> </br></br>
