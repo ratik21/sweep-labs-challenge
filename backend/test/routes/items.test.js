@@ -20,37 +20,69 @@ beforeEach(() => {
 });
 
 describe('GET /api/items', () => {
-  it('returns all items', async () => {
+  it('returns all items with total', async () => {
     const res = await request(app).get('/api/items');
     expect(res.status).toBe(200);
-    expect(res.body).toHaveLength(3);
-    expect(res.body[0].name).toBe('Laptop Pro');
+    expect(res.body.items).toHaveLength(3);
+    expect(res.body.total).toBe(3);
+    expect(res.body.items[0].name).toBe('Laptop Pro');
   });
 
   it('filters by search query', async () => {
     const res = await request(app).get('/api/items?q=laptop');
     expect(res.status).toBe(200);
-    expect(res.body).toHaveLength(1);
-    expect(res.body[0].name).toBe('Laptop Pro');
+    expect(res.body.items).toHaveLength(1);
+    expect(res.body.total).toBe(1);
+    expect(res.body.items[0].name).toBe('Laptop Pro');
   });
 
   it('search is case-insensitive', async () => {
     const res = await request(app).get('/api/items?q=LAPTOP');
     expect(res.status).toBe(200);
-    expect(res.body).toHaveLength(1);
-    expect(res.body[0].name).toBe('Laptop Pro');
+    expect(res.body.items).toHaveLength(1);
+    expect(res.body.items[0].name).toBe('Laptop Pro');
   });
 
-  it('limits results', async () => {
-    const res = await request(app).get('/api/items?limit=2');
+  it('paginates with offset and limit', async () => {
+    const res = await request(app).get('/api/items?offset=1&limit=2');
     expect(res.status).toBe(200);
-    expect(res.body).toHaveLength(2);
+    expect(res.body.items).toHaveLength(2);
+    expect(res.body.total).toBe(3);
+    expect(res.body.items[0].name).toBe('Noise Cancelling Headphones');
   });
 
-  it('returns empty array when no matches', async () => {
+  it('defaults limit to 20 and offset to 0', async () => {
+    const res = await request(app).get('/api/items');
+    expect(res.status).toBe(200);
+    expect(res.body.items).toHaveLength(3);
+    expect(res.body.total).toBe(3);
+  });
+
+  it('caps limit at 100 and floors at 1', async () => {
+    const res = await request(app).get('/api/items?limit=999');
+    expect(res.status).toBe(200);
+    expect(res.body.items).toHaveLength(3);
+  });
+
+  it('normalizes invalid offset to 0', async () => {
+    const res = await request(app).get('/api/items?offset=-5');
+    expect(res.status).toBe(200);
+    expect(res.body.items).toHaveLength(3);
+    expect(res.body.items[0].name).toBe('Laptop Pro');
+  });
+
+  it('returns empty items when offset exceeds total', async () => {
+    const res = await request(app).get('/api/items?offset=100');
+    expect(res.status).toBe(200);
+    expect(res.body.items).toHaveLength(0);
+    expect(res.body.total).toBe(3);
+  });
+
+  it('returns empty items when no matches', async () => {
     const res = await request(app).get('/api/items?q=nonexistent');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual([]);
+    expect(res.body.items).toEqual([]);
+    expect(res.body.total).toBe(0);
   });
 });
 

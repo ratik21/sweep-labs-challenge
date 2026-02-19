@@ -7,7 +7,9 @@ const { invalidateStats } = require('../utils/stats');
 router.get('/', async (req, res, next) => {
   try {
     const data = await readData();
-    const { limit, q } = req.query;
+    const { q } = req.query;
+    const offset = Math.max(0, parseInt(req.query.offset) || 0);
+    const limit = Math.min(Math.max(1, parseInt(req.query.limit) || 20), 100);
     let results = data;
 
     if (q) {
@@ -16,11 +18,10 @@ router.get('/', async (req, res, next) => {
       );
     }
 
-    if (limit) {
-      results = results.slice(0, parseInt(limit));
-    }
+    const total = results.length;
+    results = results.slice(offset, offset + limit);
 
-    res.json(results);
+    res.json({ items: results, total });
   } catch (err) {
     next(err);
   }
