@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { readData, writeData } = require('../utils/data');
+const { invalidateStats } = require('../utils/stats');
 
 // GET /api/items
 router.get('/', async (req, res, next) => {
@@ -57,6 +58,7 @@ router.post('/', async (req, res, next) => {
     const item = { ...req.body, id: Date.now() };
     data.push(item);
     await writeData(data);
+    invalidateStats();
     res.status(201).json(item);
   } catch (err) {
     next(err);
