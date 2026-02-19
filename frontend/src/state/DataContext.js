@@ -5,8 +5,8 @@ const DataContext = createContext();
 export function DataProvider({ children }) {
   const [items, setItems] = useState([]);
 
-  const fetchItems = useCallback(async () => {
-    const res = await fetch('/api/items');
+  const fetchItems = useCallback(async (signal) => {
+    const res = await fetch('/api/items', { signal });
     const json = await res.json();
     setItems(json);
   }, []);
