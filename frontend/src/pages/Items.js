@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useData } from '../state/DataContext';
 import { Link } from 'react-router-dom';
 import { List } from 'react-window';
+import ItemsSkeleton from '../skeletons/ItemsSkeleton';
 
 const ROW_HEIGHT = 50;
 
 function Row({ index, style, items }) {
   const item = items[index];
   return (
-    <div style={{ ...style, display: 'flex', alignItems: 'center', borderBottom: '1px solid #eee', padding: '0 8px', boxSizing: 'border-box' }}>
-      <Link to={'/items/' + item.id}>{item.name}</Link>
-      <span style={{ marginLeft: 8, color: '#666' }}>${item.price}</span>
+    <div className="item-row" style={style}>
+      <Link className="item-name" to={'/items/' + item.id}>{item.name}</Link>
+      <span className="item-price">${item.price.toLocaleString()}</span>
     </div>
   );
 }
@@ -36,41 +37,45 @@ function Items() {
   }, [fetchItems]);
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
+  const hasItems = items.length > 0;
 
   return (
-    <div style={{ padding: 16 }}>
+    <div className="page">
       <input
+        className="search-input"
         type="text"
         placeholder="Search items..."
+        aria-label="Search items"
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
-        style={{ padding: 8, marginBottom: 16, width: '100%', boxSizing: 'border-box' }}
       />
 
-      {loading ? (
-        <p>Loading...</p>
+      {loading && !hasItems ? (
+        <ItemsSkeleton />
       ) : error ? (
-        <p>Error: {error.message}</p>
-      ) : items.length === 0 ? (
-        <p>No items found.</p>
+        <p className="error-msg">Error: {error.message}</p>
+      ) : !hasItems ? (
+        <p className="empty-msg">No items found.</p>
       ) : (
         <>
-          <List
-            height={Math.min(items.length, 10) * ROW_HEIGHT}
-            rowCount={items.length}
-            rowHeight={ROW_HEIGHT}
-            width="100%"
-            rowComponent={Row}
-            rowProps={{ items }}
-          />
+          <div className={`items-card${loading ? ' items-loading' : ''}`}>
+            <List
+              height={Math.min(items.length, 10) * ROW_HEIGHT}
+              rowCount={items.length}
+              rowHeight={ROW_HEIGHT}
+              width="100%"
+              rowComponent={Row}
+              rowProps={{ items }}
+            />
+          </div>
 
           {total > 0 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
-              <button onClick={() => setPage(page - 1)} disabled={page <= 1}>
+            <div className="pagination">
+              <button className="pagination-btn" onClick={() => setPage(page - 1)} disabled={page <= 1} aria-label="Previous page">
                 Prev
               </button>
-              <span>Page {page} of {totalPages}</span>
-              <button onClick={() => setPage(page + 1)} disabled={page >= totalPages}>
+              <span className="pagination-info">Page {page} of {totalPages}</span>
+              <button className="pagination-btn" onClick={() => setPage(page + 1)} disabled={page >= totalPages} aria-label="Next page">
                 Next
               </button>
             </div>
